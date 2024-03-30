@@ -1,4 +1,6 @@
 class Item:
+    """Class Item is used to store data about an item.
+    """    
     def __init__(
         self,
         name: str | int,
@@ -13,8 +15,8 @@ class Item:
 
     def __str__(self) -> str:
         return (
-            "n={}\t".format(self.name)
-            + "w={}\t".format(self.weight)
-            + "v={}\t".format(self.value)
-            + "q={}".format(self.quantity)
+            "name={}".format(self.name).ljust(20)
+            + " weight={}".format(self.weight).ljust(15)
+            + " value={}".format(self.value).ljust(15)
+            + " quantity={}".format(self.quantity).ljust(15)
         )

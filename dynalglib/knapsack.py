@@ -3,55 +3,93 @@ from dynalglib.utils import create_martix
 
 
 class Knapsack:
-    """_summary_"""
+    """Class Knapsack is used to solve the Knapsack problem.
+
+
+    Attributes
+    ----------
+
+    all_items : Items
+        list of all items which are available
+    capacity : int
+        maximum capacity of the knapsack
+    chosen_items : list
+        list of the chosen items to fill the knapsack
+    total_value : int
+        resulting maximum value that we obtain when knapsack is filled
+
+
+    Methods
+    -------
+
+    __len__()
+        Returns number of uniq items in the knapsack
+    __str__()
+        Returns a string representation of the filled knapsack
+    __getitem__()
+        Returns item from filled knapsack by its index
+    collect_answers()
+        Returns list of chosen items. This function uses result_matrix to form list of answers
+    fill()
+        Fills the knapsack. This function solves the knapsack problem
+
+    """
 
     def __init__(self, items: list[Item], capacity: int) -> None:
         self.all_items = items
         self.capacity = capacity
-        self.filled_knapsack = list()
+        self.chosen_items = list()
         self.total_value = 0
 
     def __len__(
         self,
     ) -> int:
-        """_summary_
+        """Returns number of uniq items in the knapsack
 
         Returns
         -------
         int
-            _description_
+            number of uniq items in the knapsack
         """
 
-        return len(self.filled_knapsack)
+        return len(self.chosen_items)
 
     def __str__(
         self,
     ) -> str:
-        """_summary_
+        """Returns a string representation of the filled knapsack
 
         Returns
         -------
         str
-            _description_
+            string representation of the filled knapsack
         """
 
-        return "\n".join(item.__str__() for item in self.filled_knapsack)
+        return "\n".join(item.__str__() for item in self.chosen_items)
 
-    def __getitem__(self, key):
-        return self.filled_knapsack[key]
+    def __getitem__(self, key) -> Item:
+        """Returns item from filled knapsack by its index
+
+        Returns
+        -------
+        Item
+            item from filled knapsack by its index
+        """
+
+        return self.chosen_items[key]
 
     def collect_answers(self, result_matrix: list[list]) -> list[Item]:
-        """_summary_
+        """Returns list of chosen items. This function uses result_matrix to form list of answers
 
         Parameters
         ----------
         result_matrix : list[list]
-            _description_
+            two-dimensional list of maximum value and quntity of each item on each iteration
 
         Returns
         -------
         list[Item]
-            _description_
+            list of chosen items
         """
 
         result_list: list = []
@@ -97,7 +135,7 @@ class Knapsack:
     def fill(
         self,
     ) -> None:
-        """_summary_"""
+        """Fills the knapsack. This function solves the knapsack problem"""
 
         ROWS = len(self.all_items)
         COLMS = self.capacity + 1
@@ -127,5 +165,5 @@ class Knapsack:
                     max_in_tmp = max(results)
                     col[0] = max_in_tmp
                     col[1] = a[results.index(max_in_tmp)]
-        self.filled_knapsack = self.collect_answers(matrix)
-        self.total_value = sum([i.value * i.quantity for i in self.filled_knapsack])
+        self.chosen_items = self.collect_answers(matrix)
+        self.total_value = sum([i.value * i.quantity for i in self.chosen_items])

@@ -1,9 +1,12 @@
+from typing import Union
+
+
 class Item:
     """Class Item is used to store data about an item."""
 
     def __init__(
         self,
-        name: str | int,
+        name: Union[str, int],
         weight: int = 1,
         value: int = 1,
         quantity: int = 1,

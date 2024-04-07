@@ -74,7 +74,7 @@ class TSP:
 
         return min_distance, min_path
 
-    def solve(self, start: int = 0) -> None:  
+    def solve(self, start: int = 0) -> None:
         """Solves the TSP
 
         Parameters

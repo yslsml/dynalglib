@@ -1,6 +1,6 @@
 class Item:
-    """Class Item is used to store data about an item.
-    """    
+    """Class Item is used to store data about an item."""
+
     def __init__(
         self,
         name: str | int,

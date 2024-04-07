@@ -1,5 +1,5 @@
 from dynalglib.item import Item
-from dynalglib.utils import create_martix
+from dynalglib.utils import generate_matrix
 
 
 class Knapsack:
@@ -10,13 +10,13 @@ class Knapsack:
     ----------
 
     all_items : Items
-        list of all items which are available
+        A list of all items which are available
     capacity : int
-        maximum capacity of the knapsack
+        A maximum capacity of the knapsack
     chosen_items : list
-        list of the chosen items to fill the knapsack
+        A list of the chosen items to fill the knapsack
     total_value : int
-        resulting maximum value that we obtain when knapsack is filled
+        A resulting maximum value that we obtain when knapsack is filled
 
 
     Methods
@@ -78,12 +78,12 @@ class Knapsack:
 
         return self.chosen_items[key]
 
-    def collect_answers(self, result_matrix: list[list]) -> list[Item]:
+    def collect_answers(self, result_matrix: list[list[int]]) -> list[Item]:
         """Returns list of chosen items. This function uses result_matrix to form list of answers
 
         Parameters
         ----------
-        result_matrix : list[list]
+        result_matrix : list[list[int]]
             two-dimensional list of maximum value and quntity of each item on each iteration
 
         Returns
@@ -138,16 +138,17 @@ class Knapsack:
         """Fills the knapsack. This function solves the knapsack problem"""
 
         ROWS = len(self.all_items)
-        COLMS = self.capacity + 1
+        COLS = self.capacity + 1
         # МОЖНО ПОПРОБОВАТЬ СДЕ"ЛАТЬ ОТДЕЛЬНЫЙ КЛАСС CELL, КОТОРЫЙ БУДЕТ ХРАНИТЬ ЗНАЧЕНИЕ ЯЧЕЙКИ
-        matrix = create_martix(rows=ROWS, colms=COLMS, filler=[None, None])
+        matrix = generate_matrix(rows=ROWS, cols=COLS)
+        matrix = [[[None, None] for _ in range(COLS)] for _ in range(ROWS)]
         for index_row, row in enumerate(matrix):
             a = [
                 min(
                     self.all_items[index_row].quantity,
                     i // self.all_items[index_row].weight,
                 )
-                for i in range(COLMS)
+                for i in range(COLS)
             ]
             for index_col, col in enumerate(row):
                 if index_row == 0:

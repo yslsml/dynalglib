@@ -1,5 +1,22 @@
 from typing import Any
 
 
-def create_martix(rows: int, colms: int, filler: Any = None):
-    return [[filler.copy() for _ in range(colms)] for _ in range(rows)]
+def generate_matrix(rows: int = 5, cols: int = 5) -> list[list[int]]:
+    """Returns a zero matrix (two-dimensional list) of a given size
+
+    Parameters
+    ----------
+    rows : int, optional
+        A number of rows in matrix, by default 5
+    cols : int, optional
+        A number of colomns in matrix, by default 5
+
+    Returns
+    -------
+    list[list[int]]
+        A two-dimensional list representing a zero matrix of a given size
+    """
+
+    # Инициализация матрицы нулями
+    matrix = [[0] * cols for _ in range(rows)]
+    return matrix

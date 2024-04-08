@@ -1,4 +1,3 @@
-from dynalglib import Item
 from dynalglib import TSP
 
 

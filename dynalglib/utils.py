@@ -1,6 +1,3 @@
-from typing import Any
-
-
 def generate_matrix(rows: int = 5, cols: int = 5) -> list[list[int]]:
     """Returns a zero matrix (two-dimensional list) of a given size
 

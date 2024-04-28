@@ -1,3 +1,4 @@
+from typing import List
 from dynalglib.item import Item
 from dynalglib.utils import generate_matrix
 
@@ -9,100 +10,109 @@ class Knapsack:
     Attributes
     ----------
 
-    all_items : Items
-        A list of all items which are available
+    all_items : List[Items]
+        A List of all items which are available.
     capacity : int
-        A maximum capacity of the knapsack
-    chosen_items : list
-        A list of the chosen items to fill the knapsack
+        A maximum capacity of the knapsack.
+    chosen_items : List[Items]
+        A List of the chosen items to fill the knapsack.
     total_value : int
-        A resulting maximum value that we obtain when knapsack is filled
+        A resulting maximum value that we obtain when knapsack is filled.
 
 
     Methods
     -------
 
     __len__()
-        Returns number of uniq items in the knapsack
+        Returns number of uniq items in the knapsack.
     __str__()
-        Returns a string representation of the filled knapsack
+        Returns a string representation of the filled knapsack.
     __getitem__()
-        Returns item from filled knapsack by its index
-    collect_answers()
-        Returns list of chosen items. This function uses result_matrix to form list of answers
+        Returns item from filled knapsack by its index.
+    _collect_answers()
+        Returns List of chosen items. This function uses result_matrix to form List of answers.
     fill()
-        Fills the knapsack. This function solves the knapsack problem
+        Fills the knapsack. This function solves the knapsack problem.
 
     """
 
-    def __init__(self, items: list[Item], capacity: int) -> None:
+    def __init__(self, items: List[Item], capacity: int) -> None:
         self.all_items = items
         self.capacity = capacity
         self.chosen_items = list()
         self.total_value = 0
 
-    def __len__(
-        self,
-    ) -> int:
-        """Returns number of uniq items in the knapsack
+    def __len__(self) -> int:
+        """Returns number of uniq items in the knapsack.
+
+        Parameters
+        ----------
+        None
 
         Returns
         -------
         int
-            number of uniq items in the knapsack
+            A number of uniq items in the knapsack.
         """
 
         return len(self.chosen_items)
 
-    def __str__(
-        self,
-    ) -> str:
-        """Returns a string representation of the filled knapsack
+    def __str__(self) -> str:
+        """Returns a string representation of the filled knapsack.
+
+        Parameters
+        ----------
+        None
 
         Returns
         -------
         str
-            string representation of the filled knapsack
+            A string representation of the filled knapsack.
         """
 
         return "\n".join(item.__str__() for item in self.chosen_items)
 
-    def __getitem__(self, key) -> Item:
-        """Returns item from filled knapsack by its index
+    def __getitem__(self, key: int) -> Item:
+        """Returns item from filled knapsack by its index.
+
+        Parameters
+        ----------
+        key: int
+            An index of the desired item.
 
         Returns
         -------
         Item
-            item from filled knapsack by its index
+            An item from filled knapsack by its index.
         """
 
         return self.chosen_items[key]
 
-    def collect_answers(self, result_matrix: list[list[int]]) -> list[Item]:
-        """Returns list of chosen items. This function uses result_matrix to form list of answers
+    def _collect_answers(self, result_matrix: List[List[int]]) -> List[Item]:
+        """Returns List of chosen items. This function uses result_matrix to form List of answers.
 
         Parameters
         ----------
-        result_matrix : list[list[int]]
-            two-dimensional list of maximum value and quntity of each item on each iteration
+        result_matrix : List[List[int]]
+            A two-dimensional List of maximum value and quntity of each item on each iteration.
 
         Returns
         -------
-        list[Item]
-            list of chosen items
+        List[Item]
+            A list of chosen items.
         """
 
-        result_list: list = []
+        result_List: List = []
         taken_quantity_sum: int = 0
         for i in range(len(result_matrix) - 1, -1, -1):  # FROM LAST TO FIRST
             if i == len(result_matrix) - 1:
-                result_list.append(result_matrix[i][len(result_matrix[i]) - 1])
+                result_List.append(result_matrix[i][len(result_matrix[i]) - 1])
                 taken_quantity_sum += (
                     self.all_items[i].weight
                     * result_matrix[i][len(result_matrix[i]) - 1][1]
                 )
             else:
-                result_list.append(
+                result_List.append(
                     result_matrix[i][(len(result_matrix[i]) - 1 - taken_quantity_sum)]
                 )
                 taken_quantity_sum += (
@@ -112,10 +122,10 @@ class Knapsack:
                     ]
                 )
 
-        result_list.reverse()
+        result_List.reverse()
 
         items_info = []
-        for index_of_item, answer in enumerate(result_list):
+        for index_of_item, answer in enumerate(result_List):
             if answer[1] > 0:
                 items_info.append(
                     (
@@ -132,14 +142,20 @@ class Knapsack:
 
         return items
 
-    def fill(
-        self,
-    ) -> None:
-        """Fills the knapsack. This function solves the knapsack problem"""
+    def fill(self) -> None:
+        """Fills the knapsack. This function solves the knapsack problem.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
 
         ROWS = len(self.all_items)
         COLS = self.capacity + 1
-        # МОЖНО ПОПРОБОВАТЬ СДЕ"ЛАТЬ ОТДЕЛЬНЫЙ КЛАСС CELL, КОТОРЫЙ БУДЕТ ХРАНИТЬ ЗНАЧЕНИЕ ЯЧЕЙКИ
         matrix = generate_matrix(rows=ROWS, cols=COLS)
         matrix = [[[None, None] for _ in range(COLS)] for _ in range(ROWS)]
         for index_row, row in enumerate(matrix):
@@ -163,8 +179,8 @@ class Knapsack:
                             + matrix[index_row - 1][index_col - i][0]
                         )
                         results.append(value)  # Добавляем значение в список
-                    max_in_tmp = max(results)
+                    max_in_tmp = max(results)  # TODO rename
                     col[0] = max_in_tmp
                     col[1] = a[results.index(max_in_tmp)]
-        self.chosen_items = self.collect_answers(matrix)
+        self.chosen_items = self._collect_answers(matrix)
         self.total_value = sum([i.value * i.quantity for i in self.chosen_items])

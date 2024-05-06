@@ -3,7 +3,7 @@
 [![Tests](https://github.com/yslsml/dynalglib/actions/workflows/tests.yaml/badge.svg)](https://github.com/yslsml/dynalglib/actions/workflows/tests.yaml)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-Dynalglib is a library which is designed to solve some of dynamic programming algorithms in Python.
+Dynalglib is a library which is designed to solve problems using dynamic programming algorithms in Python.
 
 
 ## Released algorithms:
@@ -15,6 +15,16 @@ Dynalglib is a library which is designed to solve some of dynamic programming al
 
 
 ## Installing
+To install this library you should run:
+``` bash
+pip install dynalglib    
+```
+     
+To update the library you should run:
+``` bash 
+pip install -U dynalglib
+```
+
 
 ## A simple example
 ``` python

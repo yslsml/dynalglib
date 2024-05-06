@@ -8,29 +8,29 @@ class Item:
     Attributes
     ----------
 
-    all_items : List[Items]
-        A List of all items which are available.
-    capacity : int
-        A maximum capacity of the knapsack.
-    chosen_items : List[Items]
-        A List of the chosen items to fill the knapsack.
-    total_value : int
-        A resulting maximum value that we obtain when knapsack is filled.
+    name : Union[str, int]
+        The name of the item.
+    weight : int
+        The weight of the item.
+    value : int
+        The value of the item.
+    quantity : int
+        The quantity of the item.
 
 
     Methods
     -------
 
-    __len__()
-        Returns number of uniq items in the knapsack.
     __str__()
-        Returns a string representation of the filled knapsack.
-    __getitem__()
-        Returns item from filled knapsack by its index.
-    collect_answers()
-        Returns List of chosen items. This function uses result_matrix to form List of answers.
-    fill()
-        Fills the knapsack. This function solves the knapsack problem.
+        Returns a string representation of a class object.
+
+
+    Example
+    -------
+
+    >>> from dynalglib import Item
+    >>> my_item = Item(name="apple", weight=2, value=3, quantity=6)
+    >>> print(my_item)
 
     """
 
@@ -43,6 +43,18 @@ class Item:
         self.quantity = quantity
 
     def __str__(self) -> str:
+        """Returns a string representation of a class object.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        str
+            A string representation of a class object.
+        """
+
         return (
             "name={}".format(self.name).ljust(20)
             + " weight={}".format(self.weight).ljust(15)

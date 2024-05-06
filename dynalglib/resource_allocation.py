@@ -28,6 +28,19 @@ class Resource_Allocation:
         Returns list representing the amount we allocate to each company.
     solve()
         Solves the Resource Allocation problem.
+    generate_random_profit_matrix()
+        Generates random profit matrix.
+
+
+    Example
+    -------
+
+    >>> from dynalglib import Resource_Allocation
+    >>> profit_matrix = Resource_Allocation.generate_random_profit_matrix(5,10,1,50)
+    >>> resource_allocation = Resource_Allocation(profit_matrix)
+    >>> resource_allocation.solve()
+    >>> print(resource_allocation.max_profit) # prints max profit that we obtain
+    >>> print(resource_allocation.invest_in_company) # prints the allocation
 
     """
 
@@ -53,7 +66,8 @@ class Resource_Allocation:
         return self.invest_in_company[key]
 
     def _collect_answers(self, result_matrix: List[List[int]]) -> List[int]:
-        """Returns list representing the amount we allocate to each company. This function uses result_matrix to form allocation list.
+        """Returns list representing the amount we allocate to each company.
+        This function uses result_matrix to form allocation list.
 
         Parameters
         ----------
@@ -69,7 +83,7 @@ class Resource_Allocation:
         results: List = []
         taken_quantity_sum: int = 0
 
-        for i in range(len(result_matrix) - 1, -1, -1):  # FROM LAST TO FIRST
+        for i in range(len(result_matrix) - 1, -1, -1):
             if i == len(result_matrix) - 1:
                 results.append(result_matrix[i][len(result_matrix[i]) - 1])
                 taken_quantity_sum += result_matrix[i][len(result_matrix[i]) - 1][1]
@@ -103,14 +117,13 @@ class Resource_Allocation:
         for index_row, row in enumerate(matrix):
             for index_col, col in enumerate(row):
                 if index_row != 0:
-                    results = []  # Создаем пустой список для хранения результатов
+                    results = []
                     for i in range(index_col + 1):
-                        # Вычисляем значение для текущего элемента генератора
                         value = (
                             self.profit_matrix[index_row][i]
                             + matrix[index_row - 1][index_col - i][0]
                         )
-                        results.append(value)  # Добавляем значение в список
+                        results.append(value)
                     max_value = max(results)
                     col[0] = max_value
                     col[1] = results.index(max_value)
@@ -128,9 +141,18 @@ class Resource_Allocation:
         min_profit: int = 1,
         max_profit: int = 12,
     ) -> List[List[int]]:
+        """Generates random profit matrix.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
 
         matrix = generate_matrix(rows=company_count, cols=max_investment + 1)
-        # Заполнение матрицы случайными расстояниями
         for i in range(company_count):
             for j in range(max_investment + 1):
                 while True:

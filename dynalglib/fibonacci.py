@@ -19,6 +19,14 @@ class Fibonacci:
     __extend_cache()
         Is used to extend cache list of Fibonacci numbers up to given index.
 
+
+    Example
+    -------
+
+    >>> from dynalglib import Fibonacci
+    >>> fibonacci = Fibonacci()
+    >>> print(fibonacci[5]) # prints 5th Fibonacci number
+
     """
 
     def __init__(self) -> None:

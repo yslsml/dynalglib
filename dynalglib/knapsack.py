@@ -34,6 +34,20 @@ class Knapsack:
     fill()
         Fills the knapsack. This function solves the knapsack problem.
 
+
+    Example
+    -------
+
+    >>> from dynalglib import Knapsack
+    >>> from dynalglib import Item
+    >>> item1 = Item(name="apple", weight=2, value=3, quantity=6)
+    >>> item2 = Item(name="pineapple", weight=4, value=8, quantity=3)
+    >>> item3 = Item(name="kiwi", weight=3, value=6, quantity=3)
+    >>> knapsack = Knapsack(items=[item1, item2, item3], capacity=10)
+    >>> knapsack.fill()
+    >>> print(knapsack.total_value) # prints max value that we obtain
+    >>> print(knapsack) # prints which items we choose
+
     """
 
     def __init__(self, items: List[Item], capacity: int) -> None:
@@ -104,7 +118,7 @@ class Knapsack:
 
         result_List: List = []
         taken_quantity_sum: int = 0
-        for i in range(len(result_matrix) - 1, -1, -1):  # FROM LAST TO FIRST
+        for i in range(len(result_matrix) - 1, -1, -1):
             if i == len(result_matrix) - 1:
                 result_List.append(result_matrix[i][len(result_matrix[i]) - 1])
                 taken_quantity_sum += (
@@ -129,10 +143,10 @@ class Knapsack:
             if answer[1] > 0:
                 items_info.append(
                     (
-                        self.all_items[index_of_item].name,  # name
-                        self.all_items[index_of_item].weight,  # weight
-                        self.all_items[index_of_item].value,  # value
-                        answer[1],  # quantity
+                        self.all_items[index_of_item].name,
+                        self.all_items[index_of_item].weight,
+                        self.all_items[index_of_item].value,
+                        answer[1],
                     )
                 )
         items = [
@@ -171,15 +185,14 @@ class Knapsack:
                     col[0] = self.all_items[index_row].value * a[index_col]
                     col[1] = a[index_col]
                 else:
-                    results = []  # Создаем пустой список для хранения результатов
+                    results = []
                     for i in range(index_col + 1):
-                        # Вычисляем значение для текущего элемента генератора
                         value = (
                             self.all_items[index_row].value * a[i]
                             + matrix[index_row - 1][index_col - i][0]
                         )
-                        results.append(value)  # Добавляем значение в список
-                    max_in_tmp = max(results)  # TODO rename
+                        results.append(value)
+                    max_in_tmp = max(results)
                     col[0] = max_in_tmp
                     col[1] = a[results.index(max_in_tmp)]
         self.chosen_items = self._collect_answers(matrix)

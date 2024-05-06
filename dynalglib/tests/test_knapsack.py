@@ -8,20 +8,20 @@ from dynalglib import Knapsack
     [
         (
             [
-                Item(name="1", weight=2, value=3, quantity=6),
-                Item(name="2", weight=4, value=8, quantity=3),
-                Item(name="3", weight=3, value=6, quantity=3),
-                Item(name="4", weight=1, value=7, quantity=8),
+                Item(name="apple", weight=2, value=3, quantity=6),
+                Item(name="pie", weight=4, value=8, quantity=3),
+                Item(name="ice-cream", weight=3, value=6, quantity=3),
+                Item(name="peach", weight=1, value=7, quantity=8),
             ],
             10,
             59,
         ),
         (
             [
-                Item(name="1", weight=2, value=11, quantity=5),
-                Item(name="2", weight=4, value=24, quantity=2),
-                Item(name="3", weight=8, value=42, quantity=3),
-                Item(name="4", weight=1, value=5, quantity=6),
+                Item(name="ring", weight=2, value=11, quantity=5),
+                Item(name="pearl", weight=4, value=24, quantity=2),
+                Item(name="necklace", weight=8, value=42, quantity=3),
+                Item(name="bracelet", weight=1, value=5, quantity=6),
             ],
             12,
             70,

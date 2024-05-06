@@ -17,6 +17,5 @@ def generate_matrix(rows: int = 5, cols: int = 5) -> List[List[int]]:
         A two-dimensional List representing a zero matrix of a given size.
     """
 
-    # Инициализация матрицы нулями
     matrix = [[0] * cols for _ in range(rows)]
     return matrix

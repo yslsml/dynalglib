@@ -26,6 +26,15 @@ class Coin_Change:
     solve()
         Finds the combination of coins that makes up the given amount or the closest possible amount.
 
+
+    Example
+    -------
+
+    >>> from dynalglib import Coin_Change
+    >>> coin_change = Coin_Change()
+    >>> coin_change.solve(32)
+    >>> print(coin_change.coins) # prints the result "{1: 0, 2: 1, 5: 0, 10: 3}"
+
     """
 
     def __init__(self, denominations: List[int] = [1, 2, 5, 10]) -> None:
@@ -65,8 +74,7 @@ class Coin_Change:
         return self.coins.get(key, 0)
 
     def solve(self, amount) -> None:
-        """
-        Finds the combination of coins that makes up the given amount or the closest possible amount.
+        """Finds the combination of coins that makes up the given amount or the closest possible amount.
         If it's not possible to make up the exact amount with the given denominations,
         the method stores the combination that makes up the closest possible amount in the 'result' attribute.
 

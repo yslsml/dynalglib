@@ -30,6 +30,17 @@ class TSP:
     generate_random_distance_matrix()
         Returns two-dimensional List of random distances between cities.
 
+
+    Example
+    -------
+
+    >>> from dynalglib import TSP
+    >>> distance_matrix = TSP.generate_random_distance_matrix(city_count=5)
+    >>> tsp = TSP(distance_matrix=distance_matrix)
+    >>> tsp.solve()
+    >>> print(tsp.min_distance) # prints minimum possible distance
+    >>> print(tsp.path) # prints the best path
+
     """
 
     def __init__(self, distance_matrix: List[List[int]]) -> None:
@@ -38,6 +49,18 @@ class TSP:
         self.path: List[int] = None
 
     def __str__(self) -> str:
+        """Returns a string representation of the minimum distance and resulting path.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        str
+            A string representation of the minimum distance and resulting path.
+        """
+
         return f"min distance: {self.min_distance}\tpath: {self.path}"
 
     def _dfs(self, node, visited, path) -> tuple[int, List[int]]:
@@ -94,7 +117,7 @@ class TSP:
         path = []
 
         distance, min_path = self._dfs(start, visited, path)
-        min_path.append(start)  # Добавляем начальный город в конец маршрута
+        min_path.append(start)
         self.min_distance = distance
         self.path = min_path
 
@@ -120,10 +143,10 @@ class TSP:
         """
 
         matrix = generate_matrix(rows=city_count, cols=city_count)
-        # Заполнение матрицы случайными расстояниями
+
         for i in range(city_count):
             for j in range(i + 1, city_count):
                 distance = random.randint(min_distance, max_distance)
                 matrix[i][j] = distance
-                matrix[j][i] = distance  # Значение симметрично
+                matrix[j][i] = distance
         return matrix

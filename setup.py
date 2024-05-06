@@ -16,7 +16,7 @@ setup(
     url="https://github.com/yslsml/dynalglib",  # Provide either the link to your github or to your website
     project_urls={
         # "Documentation":"",
-        "source":"https://github.com/yslsml/dynalglib"
+        "source": "https://github.com/yslsml/dynalglib"
     },
     keywords=[
         "math",
